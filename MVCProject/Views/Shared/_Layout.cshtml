@@ -4,12 +4,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - MVCProject</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
     <link href="~/css/all.min.css" rel="stylesheet" />
     <link href="~/css/fontawesome.min.css" rel="stylesheet" />
     @*<link rel="stylesheet" href="~/css/site.css" />*@
-   <link href="~/css/style.css" rel="stylesheet" />
-   
+    <link href="~/css/style.css" rel="stylesheet" />
+
 
 </head>
 <body>
@@ -126,8 +126,12 @@
     </div>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @*<script src="~/js/site.js" asp-append-version="true"></script>*@
+
     <script src="~/js/custom.js"></script>
     @RenderSection("Scripts", required: false)
 </body>

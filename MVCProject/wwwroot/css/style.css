@@ -9,7 +9,7 @@ body {
     min-height: 4000px;
 }
 
-a {
+a{
     color: white;
     text-decoration: none;
 }
@@ -387,4 +387,8 @@ select {
 .RemoveComment {
     background: #e3e2e2;
     margin-top: -10px;
+}
+
+.displayAcreation {
+    display: none;
 }
