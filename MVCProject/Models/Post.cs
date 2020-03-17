@@ -8,11 +8,11 @@ namespace MVCProject.Models
 {
     public class Post
     {
-        //public Post()
-        //{
-        //    Comments = new HashSet<Comment>();
-        //    Likes = new HashSet<Like>();
-        //}
+        public Post()
+        {
+            Comments = new HashSet<Comment>();
+            Likes = new HashSet<Like>();
+        }
         public int PostId { get; set; }
         [Required]
         public DateTime PostDateTime { get; set; }

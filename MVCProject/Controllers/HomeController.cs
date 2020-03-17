@@ -11,11 +11,17 @@ namespace MVCProject.Controllers
 {
     public class HomeController : Controller
     {
+        FacebookContext db;
+
+
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, FacebookContext _db)
         {
             _logger = logger;
+
+            db = _db;
+           
         }
 
         public IActionResult Index()
@@ -40,7 +46,15 @@ namespace MVCProject.Controllers
             return number1 + number2;
         }
 
-      
+        [HttpPost]
+        public void Create(Post p)
+        {
+           
+            db.Posts.Add(p);
+            db.SaveChanges();
+        }
+
+
 
     }
 }

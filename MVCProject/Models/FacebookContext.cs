@@ -8,7 +8,7 @@ namespace MVCProject.Models
 {
     public class FacebookContext : DbContext
     {
-        public FacebookContext()
+        public FacebookContext():base()
         {
         }
 

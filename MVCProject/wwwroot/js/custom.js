@@ -7,15 +7,28 @@
     $(".btn-Post").click(function () {
 
 
-        val1 = "5";
-        val2 = "2";
 
         var _postText = $("#createPostArea").val();
+
+        var today = new Date();
+
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+
+        today = mm + '/' + dd + '/' + yyyy;
+
         if (_postText != "") {
             $.ajax({
                 type: "POST",
-                url: "Home/Add",
-                data: { number1: val1, number2: val2 },
+                url: "Home/Create",
+                data: {
+                    "PostDateTime": today,
+                    "PostContent": _postText,
+                    "UserId": 2,
+                    "IsDeleted": false
+                },
+                
                 dataType: "text",
                 success: function (msg) {
 
@@ -26,12 +39,13 @@
                     $(".PostText").text(_postText);
                     $(".displayAcreation").css("display", "block");
                     console.log("here " + $("#html_btn").val());
+                    
 
 
 
                 },
                 error: function (req, status, error) {
-                    alert(error);
+                    alert("Error Happen " + error);
 
 
 
