@@ -203,4 +203,3 @@ E:\ITI_SD_Track\MVC\Project\MVCProject\MVCProject\bin\Debug\netcoreapp3.1\zh-Han
 E:\ITI_SD_Track\MVC\Project\MVCProject\MVCProject\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
 E:\ITI_SD_Track\MVC\Project\MVCProject\MVCProject\obj\Debug\netcoreapp3.1\Razor\Views\Profile\Profile.cshtml.g.cs
 E:\ITI_SD_Track\MVC\Project\MVCProject\MVCProject\obj\Debug\netcoreapp3.1\MVCProject.MvcApplicationPartsAssemblyInfo.cache
-E:\ITI_SD_Track\MVC\Project\MVCProject\MVCProject\obj\Debug\netcoreapp3.1\MVCProject.csprojAssemblyReference.cache

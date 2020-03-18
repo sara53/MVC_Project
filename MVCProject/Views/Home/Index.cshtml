@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<Post>
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -61,16 +62,17 @@
         <div class="createPost">
             <h6>Create Post</h6>
             <hr>
-           
-           
-                <textarea name="" id="createPostArea" cols="30" rows="10" placeholder="What is In Your Mind ?"></textarea>
-                <hr>
-                <div class="new_Btn">UploadPicture</div><br>
-                <input id="html_btn" type='file' /><br>
-                <button class="btn-Post">Post</button>
-           
+
+
+            <textarea name="" id="createPostArea" cols="30" rows="10" placeholder="What is In Your Mind ?"></textarea>
+            <hr>
+            <div class="new_Btn">UploadPicture</div><br>
+            <input id="html_btn" type='file' /><br>
+            <button class="btn-Post">Post</button>
+
 
         </div>
+
         <div class="createPost2 displayAcreation">
             <img src="~/img/prof.png" alt="" class="PrfilePic">
             <span class="ProfileName">Sara Atef</span><br>
@@ -108,8 +110,10 @@
 
             </div>
         </div>
+     
 
-        <div class="createPost2">
+
+        @*<div class="createPost2">
             <img src="~/img/prof.png" alt="" class="PrfilePic">
             <span class="ProfileName">Sara Atef</span><br>
             <span class="PostTime">1h</span>
@@ -171,79 +175,59 @@
                 </div>
 
             </div>
-        </div>
-
-        @*<div class="createPost2">
-            <img src="~/img/prof.png" alt="" class="PrfilePic">
-            <span class="ProfileName">Sara Atef</span><br>
-            <span class="PostTime">1h</span>
-            <i class="fas fa-users"></i>
-            <Select>
-                <option value=""></option>
-                <option value="">Remove Post</option>
-            </Select>
-            <p class="PostText">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nam vel autem sunt distinctio sit saepe, eius dolorum dicta
-            </p>
+        </div>*@
 
 
-            <div class="react">
-                <span class="Like">
-                    <i class="far fa-thumbs-up"></i>
-                    <span>Like</span>ن 
-                </span>
-                <span class="Comment">
-                    <i class="far fa-comments"></i>
-                    <span>Comment</span>
-                </span>
-            </div>
-            <hr>
-            <a href="#" class="ListOfLikes">Sara Atef Liked This And 15 Other</a>
-            <div class="comments">
+        @foreach (var item in Model)
+        {
+            <div class="createPost2">
+                <img src="~/img/prof.png" alt="" class="PrfilePic">
+                <span class="ProfileName">Sara Atef</span><br>
+                <span class="PostTime">@item.PostDateTime</span>
+                <i class="fas fa-users"></i>
+                <Select>
+                    <option value=""></option>
+                    <option value="">Remove Post</option>
+                </Select>
 
-                <div class="pComment">
-                    <div class="CommingComment">
-                        <img src="~/img/prof.png" alt="" class="commentPic">
-                        <textarea name="" id="" placeholder="Type Your Comment Here" class="typeComment"></textarea>
-                    </div>
-                    <div class="commented">
-                        <img src="~/img/prof.png" alt="" class="commentPic">
+                <p class="PostText">
+                   @item.PostContent
+                </p>
+                @*<img src="~/img/prof.png" alt="" class="PostImg">*@
 
-                        <p class="commenttext">
-                            <span class="CommentedName">Sara Atef</span><br>
-                            <Select class="RemoveComment">
-                                <option value=""></option>
-                                <option value="">Remove Comment</option>
-                            </Select>
-                            this my comment
-                        </p>
-                    </div>
-                    <div class="commented">
-                        <img src="~/img/prof.png" alt="" class="commentPic">
+                <div class="react">
+                    <span class="Like">
+                        <i class="far fa-thumbs-up"></i>
+                        <span>Like</span>
+                    </span>
+                    <span class="Comment">
+                        <i class="far fa-comments"></i>
+                        <span>Comment</span>
+                    </span>
+                </div>
+                <hr>
+                <a href="#" class="ListOfLikes">Sara Atef Liked This And 15 Other</a>
+                <div class="comments">
 
-                        <p class="commenttext">
-                            <span class="CommentedName">Sara Atef</span><br>
-                            <Select class="RemoveComment">
-                                <option value=""></option>
-                                <option value="">Remove Comment</option>
-                            </Select>
-                            this my comment
-                        </p>
+                    <div class="pComment">
+                        <div class="CommingComment">
+                            <img src="~/img/prof.png" alt="" class="commentPic">
+                            <textarea name="" id="" placeholder="Type Your Comment Here" class="typeComment"></textarea>
+                        </div>
                     </div>
 
                 </div>
 
             </div>
-        </div>*@
 
-
-
-    </div>
-
-    <div class="FriendAcceptReject">
+        }
 
     </div>
-</div>
+
+        <div class="FriendAcceptReject">
+
+        </div>
+    </div>
 
 
 

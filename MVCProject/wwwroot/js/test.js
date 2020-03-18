@@ -28,7 +28,7 @@
                     "UserId": 2,
                     "IsDeleted": false
                 },
-                
+
                 dataType: "text",
                 success: function (msg) {
 
@@ -39,7 +39,7 @@
                     $(".PostText").text(_postText);
                     $(".displayAcreation").css("display", "block");
                     console.log("here " + $("#html_btn").val());
-                    
+
 
 
 
@@ -54,7 +54,10 @@
 
         }
 
+
     });
+
+    console.log("test");
 });
 
 

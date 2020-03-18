@@ -26,7 +26,7 @@ namespace MVCProject.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View(db.Posts.ToList());
         }
 
         public IActionResult Privacy()
@@ -54,6 +54,10 @@ namespace MVCProject.Controllers
             db.SaveChanges();
         }
 
+        public IEnumerable<Post> GetAllPosts()
+        {
+            return db.Posts.ToList();
+        }
 
 
     }
