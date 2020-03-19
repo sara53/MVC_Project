@@ -303,7 +303,7 @@ select {
     margin-left: 10px;
 }
 
-.PostText {
+.PostText, .PostText2 {
     clear: both;
     margin-bottom: 10px;
 }
@@ -391,4 +391,8 @@ select {
 
 .displayAcreation {
     display: none;
+}
+
+.displayComment{
+    display:none;
 }

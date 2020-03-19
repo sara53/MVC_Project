@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Post>
+﻿@model PostViewModel
+@model Comment
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -79,6 +80,9 @@
             <span class="PostTime">1h</span>
             <i class="fas fa-users"></i>
             <Select>
+
+
+
                 <option value=""></option>
                 <option value="">Remove Post</option>
             </Select>
@@ -110,7 +114,74 @@
 
             </div>
         </div>
-     
+
+
+        @foreach (var item in Model.postLst)
+        {
+            <div class="createPost2">
+                <img src="~/img/prof.png" alt="" class="PrfilePic">
+                <span class="ProfileName">Sara Atef</span><br>
+                <span class="PostTime">@item.PostDateTime</span>
+                <i class="fas fa-users"></i>
+                <Select>
+                    <option value=""></option>
+                    <option value="" class="RemovePost">Remove Post</option>
+                </Select>
+
+                <p class="PostText2">
+                    @item.PostContent
+                </p>
+
+                @*<img src="~/img/prof.png" alt="" class="PostImg">*@
+
+                <div class="react">
+                    <span class="Like">
+                        <i class="far fa-thumbs-up"></i>
+                        <span>Like</span>
+                    </span>
+                    <span class="Comment">
+                        <i class="far fa-comments"></i>
+                        <span>Comment</span>
+                    </span>
+                </div>
+                <hr>
+                <a href="#" class="ListOfLikes">Sara Atef Liked This And 15 Other</a>
+                <div class="comments">
+
+                    <div class="pComment">
+                        <div class="CommingComment">
+                            <img src="~/img/prof.png" alt="" class="commentPic">
+                            <textarea name="" id="areaOfComment" placeholder="Type Your Comment Here" class="typeComment" data-id="@item.PostId"></textarea>
+
+                        </div>
+                    </div>
+
+                    @*@foreach (var i in Model.commentLst)
+                    {
+                        <div class="commented ">
+                            <img src="~/img/prof.png" alt="" class="commentPic">
+
+                            <p class="commenttext">
+                                <span class="CommentedName">Sara Atef</span><br>
+                                <Select class="RemoveComment">
+                                    <option value=""></option>
+                                    <option value="">Remove Comment</option>
+                                </Select>
+                                <span class="CommentText2">@i.CommentContent</span>
+                            </p>
+                        </div>
+                    }*@
+
+
+
+
+                </div>
+
+            </div>
+
+        }
+
+        @*@await Html.PartialAsync("GetAllComments")*@
 
 
         @*<div class="createPost2">
@@ -178,49 +249,6 @@
         </div>*@
 
 
-        @foreach (var item in Model)
-        {
-            <div class="createPost2">
-                <img src="~/img/prof.png" alt="" class="PrfilePic">
-                <span class="ProfileName">Sara Atef</span><br>
-                <span class="PostTime">@item.PostDateTime</span>
-                <i class="fas fa-users"></i>
-                <Select>
-                    <option value=""></option>
-                    <option value="">Remove Post</option>
-                </Select>
-
-                <p class="PostText">
-                   @item.PostContent
-                </p>
-                @*<img src="~/img/prof.png" alt="" class="PostImg">*@
-
-                <div class="react">
-                    <span class="Like">
-                        <i class="far fa-thumbs-up"></i>
-                        <span>Like</span>
-                    </span>
-                    <span class="Comment">
-                        <i class="far fa-comments"></i>
-                        <span>Comment</span>
-                    </span>
-                </div>
-                <hr>
-                <a href="#" class="ListOfLikes">Sara Atef Liked This And 15 Other</a>
-                <div class="comments">
-
-                    <div class="pComment">
-                        <div class="CommingComment">
-                            <img src="~/img/prof.png" alt="" class="commentPic">
-                            <textarea name="" id="" placeholder="Type Your Comment Here" class="typeComment"></textarea>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-
-        }
 
     </div>
 

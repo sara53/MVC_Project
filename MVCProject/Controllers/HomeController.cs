@@ -24,11 +24,15 @@ namespace MVCProject.Controllers
            
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int id)
         {
-            return View(db.Posts.ToList());
-        }
+            PostViewModel obj = new PostViewModel() { 
+                commentLst = db.Comments.Where(c=>c.IsDeleted == false && c.PostId == id).ToList(), postLst = db.Posts.Where(p=>p.IsDeleted == false).ToList()
+            };
 
+            return View(obj);
+        }
+       
         public IActionResult Privacy()
         {
             return View();
@@ -40,11 +44,6 @@ namespace MVCProject.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        [HttpPost]
-        public int Add(int number1, int number2)
-        {
-            return number1 + number2;
-        }
 
         [HttpPost]
         public void Create(Post p)
@@ -54,11 +53,20 @@ namespace MVCProject.Controllers
             db.SaveChanges();
         }
 
-        public IEnumerable<Post> GetAllPosts()
+        [HttpPost]
+        public void AddComment(Comment c)
         {
-            return db.Posts.ToList();
+
+            db.Comments.Add(c);
+            db.SaveChanges();
         }
 
+
+
+        public IActionResult GetAllComments(int id)
+        {
+            return View(db.Comments.Where(c=>c.PostId == id && c.IsDeleted == false).ToList());
+        }
 
     }
 }
