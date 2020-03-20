@@ -5,8 +5,9 @@
 }
 
 body {
-    background: linear-gradient(to bottom right, white, #bcbdc4);
+    /*background: linear-gradient(to bottom right, white, #bcbdc4);*/
     min-height: 4000px;
+    background: #e3e4e7;
 }
 
 a{

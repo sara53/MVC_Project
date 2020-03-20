@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MVCProject.Models;
 
@@ -24,13 +25,14 @@ namespace MVCProject.Controllers
            
         }
 
-        public IActionResult Index(int id)
+        public IActionResult Index()
         {
-            PostViewModel obj = new PostViewModel() { 
-                commentLst = db.Comments.Where(c=>c.IsDeleted == false && c.PostId == id).ToList(), postLst = db.Posts.Where(p=>p.IsDeleted == false).ToList()
-            };
+            //PostViewModel obj = new PostViewModel() { 
+            //    commentLst = db.Comments.Where(c=>c.IsDeleted == false && c.PostId == id).ToList(),
+            //    postLst = db.Posts.Where(p=>p.IsDeleted == false).ToList()
+            //};
 
-            return View(obj);
+            return View(db.Posts.Include(p=>p.Comments).Include(l=>l.Likes).ToList());
         }
        
         public IActionResult Privacy()
@@ -61,6 +63,33 @@ namespace MVCProject.Controllers
             db.SaveChanges();
         }
 
+        [HttpPost]
+        public void Like(Like l)
+        {
+
+            var _checkFound = db.Likes.SingleOrDefault(f => f.PostId == l.PostId);
+            if(_checkFound == null)
+            {
+                db.Likes.Add(l);
+                db.SaveChanges();
+            }
+            else
+            {
+                _checkFound.IsLiked = false;
+                _checkFound.PostId = l.PostId;
+                _checkFound.UserId = l.UserId;
+
+                db.SaveChanges();
+            }
+             
+        }
+
+ 
+        public List<Like> getLiked()
+        {
+
+            return db.Likes.Where(l => l.IsLiked == true).ToList();
+        }
 
 
         public IActionResult GetAllComments(int id)

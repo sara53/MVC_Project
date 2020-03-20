@@ -121,30 +121,14 @@
         }
     });
 
+   
     //$.ajax({
-    //    type: "POST",
-    //    url: "Home/AddComment",
-    //    data: {
-    //        "CommentDateTime": today,
-    //        "CommentContent": _commentText,
-    //        "UserId": 2,
-    //        "IsDeleted": false,
-    //        "PostId": _PostID
-    //    },
-
-    //    dataType: "text",
+    //    type: "GET",
+    //    url: "Home/getLiked",
     //    success: function (msg) {
+            
 
 
-    //        console.log(_commentText);
-
-
-
-
-    //        $('.typeComment').val(" ");
-    //        var _insertVarElement = _that.parent().parent()
-    //        $('<div class="commented"><img src = "../img/prof.png" alt = "" class= "commentPic" ><p class="commenttext"><span class="CommentedName">Sara Atef</span><br><span><span><Select class="RemoveComment"><option value=""></option><option value="">Remove Comment</option></Select><span class="CommentText"></span> </p></div>').insertAfter(_insertVarElement);
-    //        $(".CommentText").text(_commentText);
     //    },
     //    error: function (req, status, error) {
     //        alert("Error Happen " + error);
@@ -153,6 +137,42 @@
 
     //    }
     //});
+
+    $(".Like").click(function () {
+
+        var _that = $(this);
+        var _postID = $(this).attr('data-id');
+
+            $.ajax({
+                type: "POST",
+                url: "Home/Like",
+                data: {
+                    "PostId": _postID,
+                    "IsLiked": true,
+                    "UserId": 2,
+                 
+                },
+
+                dataType: "text",
+                success: function (msg) {
+
+                    console.log("donw");
+                    _that.children().css("color", "red");
+
+
+                },
+                error: function (req, status, error) {
+                    alert("Error Happen " + error);
+
+
+
+                }
+        });
+       
+
+     
+    });
+
 
 });
 

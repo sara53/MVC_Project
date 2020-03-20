@@ -1,5 +1,5 @@
-﻿@model PostViewModel
-@model Comment
+﻿@*@model PostViewModel*@
+@model IEnumerable<Post> 
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -116,7 +116,7 @@
         </div>
 
 
-        @foreach (var item in Model.postLst)
+        @foreach(var item in Model)
         {
             <div class="createPost2">
                 <img src="~/img/prof.png" alt="" class="PrfilePic">
@@ -135,9 +135,9 @@
                 @*<img src="~/img/prof.png" alt="" class="PostImg">*@
 
                 <div class="react">
-                    <span class="Like">
+                    <span class="Like" data-id="@item.PostId">
                         <i class="far fa-thumbs-up"></i>
-                        <span>Like</span>
+                        <span class="LikeWord">Like</span>
                     </span>
                     <span class="Comment">
                         <i class="far fa-comments"></i>
@@ -156,7 +156,7 @@
                         </div>
                     </div>
 
-                    @*@foreach (var i in Model.commentLst)
+                    @foreach (var i in item.Comments)
                     {
                         <div class="commented ">
                             <img src="~/img/prof.png" alt="" class="commentPic">
@@ -170,7 +170,7 @@
                                 <span class="CommentText2">@i.CommentContent</span>
                             </p>
                         </div>
-                    }*@
+                    }
 
 
 
@@ -182,74 +182,6 @@
         }
 
         @*@await Html.PartialAsync("GetAllComments")*@
-
-
-        @*<div class="createPost2">
-            <img src="~/img/prof.png" alt="" class="PrfilePic">
-            <span class="ProfileName">Sara Atef</span><br>
-            <span class="PostTime">1h</span>
-            <i class="fas fa-users"></i>
-            <Select>
-                <option value=""></option>
-                <option value="">Remove Post</option>
-            </Select>
-
-            <p class="PostText">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nam vel autem sunt distinctio sit saepe, eius dolorum dicta
-            </p>
-            <img src="~/img/prof.png" alt="" class="PostImg">
-
-            <div class="react">
-                <span class="Like">
-                    <i class="far fa-thumbs-up"></i>
-                    <span>Like</span>
-                </span>
-                <span class="Comment">
-                    <i class="far fa-comments"></i>
-                    <span>Comment</span>
-                </span>
-            </div>
-            <hr>
-            <a href="#" class="ListOfLikes">Sara Atef Liked This And 15 Other</a>
-            <div class="comments">
-
-                <div class="pComment">
-                    <div class="CommingComment">
-                        <img src="~/img/prof.png" alt="" class="commentPic">
-                        <textarea name="" id="" placeholder="Type Your Comment Here" class="typeComment"></textarea>
-                    </div>
-                    <div class="commented">
-                        <img src="~/img/prof.png" alt="" class="commentPic">
-
-                        <p class="commenttext">
-                            <span class="CommentedName">Sara Atef</span><br>
-                            <Select class="RemoveComment">
-                                <option value=""></option>
-                                <option value="">Remove Comment</option>
-                            </Select>
-                            this my comment
-                        </p>
-                    </div>
-                    <div class="commented">
-                        <img src="~/img/prof.png" alt="" class="commentPic">
-
-                        <p class="commenttext">
-                            <span class="CommentedName">Sara Atef</span><br>
-                            <Select class="RemoveComment">
-                                <option value=""></option>
-                                <option value="">Remove Comment</option>
-                            </Select>
-                            this my comment
-                        </p>
-                    </div>
-
-                </div>
-
-            </div>
-        </div>*@
-
-
-
     </div>
 
         <div class="FriendAcceptReject">
