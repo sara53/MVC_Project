@@ -31,8 +31,32 @@ namespace MVCProject.Controllers
             //    commentLst = db.Comments.Where(c=>c.IsDeleted == false && c.PostId == id).ToList(),
             //    postLst = db.Posts.Where(p=>p.IsDeleted == false).ToList()
             //};
-
-            return View(db.Posts.Include(p=>p.Comments).Include(l=>l.Likes).ToList());
+            var user = db.Users.Include(u => u.Posts).SingleOrDefault(u => u.UserId == 2);
+            user.FriendRequestReceivers = db.FriendRequests
+                .Where(r => r.ReceiverId == user.UserId && r.State == FriendRequestState.Accepted)
+                .Include("Sender")
+                .Include("Receiver").ToList();
+            user.FriendRequestSenders = db.FriendRequests
+                .Where(r => r.SenderId == user.UserId && r.State == FriendRequestState.Accepted)
+                .Include("Sender")
+                .Include("Receiver").ToList();
+            //var _post = db.Posts
+            //.Include(p => p.Comments)
+            //.Include(l => l.Likes)
+            //.Where(p => user.FriendRequestReceivers.Any(f => f.Sender == p.User));
+            List<Post> posts = new List<Post>();
+            foreach (var item in user.FriendRequestReceivers)
+            {
+                posts.AddRange(db.Posts.Where(p => p.UserId == item.SenderId).ToList());
+            }
+            foreach (var item in user.FriendRequestSenders)
+            {
+                posts.AddRange(db.Posts.Where(p => p.UserId == item.ReceiverId).ToList());
+            }
+            posts.AddRange(user.Posts);
+            posts.OrderBy(p => p.PostDateTime);
+            // return View(db.Posts.Include(p => p.Comments).Include(l => l.Likes).ToList());
+            return View(posts);
         }
        
         public IActionResult Privacy()
@@ -75,9 +99,10 @@ namespace MVCProject.Controllers
             }
             else
             {
-                _checkFound.IsLiked = false;
-                _checkFound.PostId = l.PostId;
-                _checkFound.UserId = l.UserId;
+                if (_checkFound.IsLiked == true)
+                    _checkFound.IsLiked = false;
+                else
+                    _checkFound.IsLiked = true;
 
                 db.SaveChanges();
             }
@@ -92,10 +117,10 @@ namespace MVCProject.Controllers
         }
 
 
-        public IActionResult GetAllComments(int id)
-        {
-            return View(db.Comments.Where(c=>c.PostId == id && c.IsDeleted == false).ToList());
-        }
+        //public IActionResult GetAllComments(int id)
+        //{
+        //    return View(db.Comments.Where(c=>c.PostId == id && c.IsDeleted == false).ToList());
+        //}
 
     }
 }

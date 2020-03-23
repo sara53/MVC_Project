@@ -9,20 +9,20 @@
 
         var _postText = $("#createPostArea").val();
 
-        var today = new Date();
+        //var today = new Date();
 
-        var dd = String(today.getDate()).padStart(2, '0');
-        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-        var yyyy = today.getFullYear();
+        //var dd = String(today.getDate()).padStart(2, '0');
+        //var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        //var yyyy = today.getFullYear();
 
-        today = mm + '/' + dd + '/' + yyyy;
+        //today = mm + '/' + dd + '/' + yyyy;
 
         if (_postText != "") {
             $.ajax({
                 type: "POST",
                 url: "Home/Create",
                 data: {
-                    "PostDateTime": today,
+                    //"PostDateTime": today,
                     "PostContent": _postText,
                     "UserId": 2,
                     "IsDeleted": false
@@ -35,10 +35,12 @@
                     console.log(_postText);
 
 
-                    $(".PostText").text(_postText);
-                    $("#createPostArea").val(" ");
-                    $(".displayAcreation").css("display", "block");
+                   
+                    $("#createPostArea").val("");
+                    $(' <div class="createPost2"><img src ="../img/prof.png" alt = "" class= "PrfilePic" ><span class="ProfileName">Sara Atef</span> <br><span class="PostTime">now</span> <i class="fas fa-users"></i><Select><option value=""></option><option value="" class="RemovePost">Remove Post</option></Select><p class="PostText"></p><div class="react"><span class="Like" data-id="@item.PostId"><i class="far fa-thumbs-up"></i><span class="LikeWord">Like</span></span><span class="Comment"><i class="far fa-comments"></i><span>Comment</span></span></div><hr><div class="comments"><div class="pComment"><div class="CommingComment"><img src="../img/prof.png" alt="" class="commentPic"><textarea name="" id="areaOfComment" placeholder="Type Your Comment Here" class="typeComment" data-id="@item.PostId"></textarea></div></div></div></div>').insertAfter('.createPost');
+                    //$(".displayAcreation").css("display", "block");
                     console.log("here " + $("#html_btn").val());
+                    $(".PostText").text(_postText);
 
 
 
@@ -121,23 +123,6 @@
         }
     });
 
-   
-    //$.ajax({
-    //    type: "GET",
-    //    url: "Home/getLiked",
-    //    success: function (msg) {
-            
-
-
-    //    },
-    //    error: function (req, status, error) {
-    //        alert("Error Happen " + error);
-
-
-
-    //    }
-    //});
-
     $(".Like").click(function () {
 
         var _that = $(this);
@@ -156,15 +141,28 @@
                 dataType: "text",
                 success: function (msg) {
 
-                    console.log("donw");
-                    _that.children().css("color", "red");
+                    var color = _that.children().css("color");
+                    
+                    if (color == "rgb(0, 0, 0)") {
+                        color = "rgb(0,0,1)";
+                        console.log("inside if");
+                       
+                        _that.children().css("color", "blue");
 
+
+
+                    } else {
+                        color = "rgb(0, 0, 0)";
+
+                        _that.children().css("color", "black");
+                       
+                    }
+
+                    
 
                 },
                 error: function (req, status, error) {
                     alert("Error Happen " + error);
-
-
 
                 }
         });
@@ -172,6 +170,13 @@
 
      
     });
+
+    //if (localStorage.getItem('LikeColor')) {
+    //    console.log(localStorage.getItem('LikeColor'));
+    //    var _StoredColor = localStorage.getItem('LikeColor');
+    //    $(".Like").children().css("color", _StoredColor);
+    //    console.log("done");
+    //}
 
 
 });

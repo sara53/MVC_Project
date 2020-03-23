@@ -397,3 +397,7 @@ select {
 .displayComment{
     display:none;
 }
+
+.modal{
+    display:none;
+}
