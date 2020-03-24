@@ -30,33 +30,21 @@
 
                 dataType: "text",
                 success: function (msg) {
-
-
                     console.log(_postText);
-
-
-                   
                     $("#createPostArea").val("");
+
                     $(' <div class="createPost2"><img src ="../img/prof.png" alt = "" class= "PrfilePic" ><span class="ProfileName">Sara Atef</span> <br><span class="PostTime">now</span> <i class="fas fa-users"></i><Select><option value=""></option><option value="" class="RemovePost">Remove Post</option></Select><p class="PostText"></p><div class="react"><span class="Like" data-id="@item.PostId"><i class="far fa-thumbs-up"></i><span class="LikeWord">Like</span></span><span class="Comment"><i class="far fa-comments"></i><span>Comment</span></span></div><hr><div class="comments"><div class="pComment"><div class="CommingComment"><img src="../img/prof.png" alt="" class="commentPic"><textarea name="" id="areaOfComment" placeholder="Type Your Comment Here" class="typeComment" data-id="@item.PostId"></textarea></div></div></div></div>').insertAfter('.createPost');
-                    //$(".displayAcreation").css("display", "block");
-                    console.log("here " + $("#html_btn").val());
+                    
                     $(".PostText").text(_postText);
-
-
-
-
                 },
                 error: function (req, status, error) {
                     alert("Error Happen " + error);
-
-
-
                 }
             });
 
         }
 
-
+      
     });
 
   
@@ -124,7 +112,7 @@
     });
 
     $(".Like").click(function () {
-
+        console.log("test y sara");
         var _that = $(this);
         var _postID = $(this).attr('data-id');
 
@@ -178,6 +166,10 @@
     //    console.log("done");
     //}
 
+    $(".ListOfPosts").click(function (e) {
+        console.log(e.target);
+        console.log("dd");
+    })
 
 });
 

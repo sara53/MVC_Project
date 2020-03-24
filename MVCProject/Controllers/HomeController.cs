@@ -27,34 +27,38 @@ namespace MVCProject.Controllers
 
         public IActionResult Index()
         {
-            //PostViewModel obj = new PostViewModel() { 
-            //    commentLst = db.Comments.Where(c=>c.IsDeleted == false && c.PostId == id).ToList(),
-            //    postLst = db.Posts.Where(p=>p.IsDeleted == false).ToList()
-            //};
+           
             var user = db.Users.Include(u => u.Posts).SingleOrDefault(u => u.UserId == 2);
+
+
             user.FriendRequestReceivers = db.FriendRequests
                 .Where(r => r.ReceiverId == user.UserId && r.State == FriendRequestState.Accepted)
                 .Include("Sender")
                 .Include("Receiver").ToList();
+
             user.FriendRequestSenders = db.FriendRequests
                 .Where(r => r.SenderId == user.UserId && r.State == FriendRequestState.Accepted)
                 .Include("Sender")
                 .Include("Receiver").ToList();
-            //var _post = db.Posts
-            //.Include(p => p.Comments)
-            //.Include(l => l.Likes)
-            //.Where(p => user.FriendRequestReceivers.Any(f => f.Sender == p.User));
+           
             List<Post> posts = new List<Post>();
+            
             foreach (var item in user.FriendRequestReceivers)
             {
-                posts.AddRange(db.Posts.Where(p => p.UserId == item.SenderId).ToList());
+                posts.AddRange(db.Posts.Where(p => p.UserId == item.SenderId).Include(p => p.Comments).Include(l => l.Likes).ToList());
             }
             foreach (var item in user.FriendRequestSenders)
             {
-                posts.AddRange(db.Posts.Where(p => p.UserId == item.ReceiverId).ToList());
+                posts.AddRange(db.Posts.Where(p => p.UserId == item.ReceiverId).Include(p => p.Comments).Include(l => l.Likes).ToList());
             }
+
             posts.AddRange(user.Posts);
+
+            //posts.AddRange(db.Posts.Include(p => p.Comments).Include(l => l.Likes));
+
             posts.OrderBy(p => p.PostDateTime);
+
+            
             // return View(db.Posts.Include(p => p.Comments).Include(l => l.Likes).ToList());
             return View(posts);
         }
