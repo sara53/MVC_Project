@@ -27,8 +27,10 @@ namespace MVCProject.Controllers
 
         public IActionResult Index()
         {
-           
-            var user = db.Users.Include(u => u.Posts).SingleOrDefault(u => u.UserId == 2);
+          
+
+
+            var user = db.Users.Include(u => u.Posts).Include(u=>u.Comments).Include(u => u.Likes).SingleOrDefault(u => u.UserId == 2);
 
 
             user.FriendRequestReceivers = db.FriendRequests
@@ -43,6 +45,7 @@ namespace MVCProject.Controllers
            
             List<Post> posts = new List<Post>();
             
+
             foreach (var item in user.FriendRequestReceivers)
             {
                 posts.AddRange(db.Posts.Where(p => p.UserId == item.SenderId).Include(p => p.Comments).Include(l => l.Likes).ToList());
@@ -52,15 +55,44 @@ namespace MVCProject.Controllers
                 posts.AddRange(db.Posts.Where(p => p.UserId == item.ReceiverId).Include(p => p.Comments).Include(l => l.Likes).ToList());
             }
 
+
+
             posts.AddRange(user.Posts);
 
+
+
+            foreach (var item in posts)
+            {
+                foreach (var i in item.Likes)
+                {
+                    i.User = db.Users.SingleOrDefault(u => u.UserId == i.UserId);
+                }
+            }
+
+
+           
             //posts.AddRange(db.Posts.Include(p => p.Comments).Include(l => l.Likes));
 
             posts.OrderBy(p => p.PostDateTime);
 
-            
+            List<User> friendList = new List<User>();
+            foreach (var item in user.FriendRequestReceivers)
+            {
+                friendList.Add(item.Sender);
+            }
+            foreach (var item in user.FriendRequestSenders)
+            {
+                friendList.Add(item.Receiver);
+            }
+            PostViewModel obj = new PostViewModel()
+            {
+                UserFriends = friendList,
+                postsLst = posts,
+                user = user
+            };
+
             // return View(db.Posts.Include(p => p.Comments).Include(l => l.Likes).ToList());
-            return View(posts);
+            return View(obj);
         }
        
         public IActionResult Privacy()
@@ -76,26 +108,29 @@ namespace MVCProject.Controllers
 
 
         [HttpPost]
-        public void Create(Post p)
+        public ActionResult Create(Post p)
         {
            
             db.Posts.Add(p);
             db.SaveChanges();
+            return Json(p.PostId);
         }
 
         [HttpPost]
-        public void AddComment(Comment c)
+        public ActionResult AddComment(Comment c)
         {
 
             db.Comments.Add(c);
             db.SaveChanges();
+
+            return Json(c.PostId);
         }
 
         [HttpPost]
         public void Like(Like l)
         {
 
-            var _checkFound = db.Likes.SingleOrDefault(f => f.PostId == l.PostId);
+            var _checkFound = db.Likes.SingleOrDefault(f => f.PostId == l.PostId && f.UserId == l.UserId);
             if(_checkFound == null)
             {
                 db.Likes.Add(l);
@@ -110,6 +145,8 @@ namespace MVCProject.Controllers
 
                 db.SaveChanges();
             }
+            
+
              
         }
 
@@ -121,10 +158,28 @@ namespace MVCProject.Controllers
         }
 
 
-        //public IActionResult GetAllComments(int id)
-        //{
-        //    return View(db.Comments.Where(c=>c.PostId == id && c.IsDeleted == false).ToList());
-        //}
+        public ActionResult RemovePost(Post p)
+        {
+            var result = db.Posts.SingleOrDefault(post => post.PostId == p.PostId);
+            if (result != null)
+            {
+                result.IsDeleted = true;
+                db.SaveChanges();
+            }
 
+            return Json(p.PostId);
+        }
+
+        public ActionResult RemoveComment(Comment c)
+        {
+            var result = db.Comments.SingleOrDefault(Comment => Comment.CommentId == c.CommentId);
+            if (result != null)
+            {
+                result.IsDeleted = true;
+                db.SaveChanges();
+            }
+            return Json(c.PostId);
+        }
+
+        }
     }
-}

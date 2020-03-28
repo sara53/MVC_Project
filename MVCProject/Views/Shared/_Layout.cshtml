@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@model PostViewModel
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -51,6 +53,23 @@
         </div>
 
         <div class="chat-sidebarRight">
+
+            @foreach (var item in Model.UserFriends)
+            {
+                <div class="friendList">
+                    <div class="frinedImg">
+                        <img src="~/img/prof.png" alt="">
+                    </div>
+                    <div class="friendName">@item.UserFirstName  @item.UserLastName</div>
+                </div>
+            }
+            @*<div class="friendList">
+                <div class="frinedImg">
+                    <img src="~/img/prof.png" alt="">
+                </div>
+                <div class="friendName">Sara Atef</div>
+            </div>
+
             <div class="friendList">
                 <div class="frinedImg">
                     <img src="~/img/prof.png" alt="">
@@ -110,13 +129,7 @@
                     <img src="~/img/prof.png" alt="">
                 </div>
                 <div class="friendName">Sara Atef</div>
-            </div>
-            <div class="friendList">
-                <div class="frinedImg">
-                    <img src="~/img/prof.png" alt="">
-                </div>
-                <div class="friendName">Sara Atef</div>
-            </div>
+            </div>*@
         </div>
 
     </div>

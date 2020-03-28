@@ -7,7 +7,11 @@ namespace MVCProject.Models
 {
     public class PostViewModel
     {
-        public List<Post> postLst { get; set; }
-        public List<Comment> commentLst { get; set; }
+
+        public User user { get; set; }
+
+        public List<User> UserFriends { get; set; }
+
+        public List<Post> postsLst { get; set; }
     }
 }
